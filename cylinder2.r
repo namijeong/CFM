@@ -20,14 +20,14 @@ C3 = c(524, 594, 914, 914, 1223,
         452, 999, 1043)
 
 #============================================================================
-data1 = MicrobondC3[MODEC3==1] ; data2 = MicrobondC3[MODEC3==2] ; data3 = MicrobondC3[MODEC3==3] ; 
+data1 = C3[MODE3==1] ; data2 = C3[MODE3==2] ; data3 = C3[MODE3==3] ; 
 # plot(  log(sort(data1)),  log(-log(1-ppoints(data1))), pch=2, xlab="logx", ylab="loglog"  )
 # plot(  log(sort(data2)),  log(-log(1-ppoints(data2))), pch=2, xlab="logx", ylab="loglog"  )
 # plot(  log(sort(data3)),  log(-log(1-ppoints(data3))), pch=2, xlab="logx", ylab="loglog"  )
 ##==========================================================================
-idx  = MODEC3
-data.all = MicrobondC3 
-idx.sort = order( MicrobondC3 )
+idx  = MODE3
+data.all = C3 
+idx.sort = order( C3 )
 idx1 = ( idx[idx.sort]==1)
 idx2 = ( idx[idx.sort]==2)
 idx3 = ( idx[idx.sort]==3)
@@ -35,17 +35,19 @@ data.sort = data.all[idx.sort]
 Fall     = ppoints( data.all )
 
 #==============================================================================
-##postscript( file="MicrobondC3Plot.ps", width=4.0, height=4.0)
-#pdf( file="MicrobondC3Plot.pdf", width=4.0, height=4.0)
- par(mar=c(5,5,1,1), omi=c(0,0,0,0), cex=0.6,mex=0.5)
+##postscript( file="C3Plot.ps", width=4.0, height=4.0)
+#pdf( file="C3Plot.pdf", width=4.0, height=4.0)
+ par(mar=c(5,5,5,5), omi=c(0,0,0,0), cex=0.6,mex=0.5)
 #==============================================================================
- xlim = range( log(data.all) );  ylim = range( log(-log(Fall) ) )
- plot(  log(data.sort[idx1]),  log(-log(1-Fall[idx1])), pch=2, xlim=xlim, ylim=ylim, 
-        xlab="logx", ylab="loglog"  )
- points(log(data.sort[idx2]),  log(-log(1-Fall[idx2])), pch=4 )
- points(log(data.sort[idx3]),  log(-log(1-Fall[idx3])), pch=20 )
- legend (-3.4, 1.6, pch=c(2,4,20),  legend=c("Leak", "Pressure", "Speed"), bty="n" )
- legend (-3.4, 0.8, lty=c(3,1,2),   legend=c("Weibull", "Lognormal", "Wald"), bty="n" )
+xlim = range( log(data.all) );  
+ ## ylim = range( log(-log(Fall) ) )
+ ylim = c(-5.5, 1) 
+ plot(  log(data.sort[idx1]),  log(-log(1-Fall[idx1])), main = "Weibull Probability", pch=2, xlim=xlim, ylim=ylim, 
+        xlab="logt", ylab="log{-log(1-F(t))}",lwd = 1.5, cex =1.5  )
+ points(log(data.sort[idx2]),  log(-log(1-Fall[idx2])), pch=4,lwd = 1.5, cex =1.5)
+ points(log(data.sort[idx3]),  log(-log(1-Fall[idx3])), pch=19,lwd = 1.5, cex =1.5 )
+ legend (13.8,1, pch=c(2,4,19),  legend=c("Leak", "Pressure", "Speed"), bty="n" ,lwd = 1.5, cex =1.5)
+ legend (13.77, 0.3, lty=c(1,1) ,col=c(4,2),   legend=c("EM_CFM", "ReliSoft_CFM"), bty="n"  ,lwd = 1.5, cex =1.5)
 
 
 ##-----------------------------------------------------------------------
