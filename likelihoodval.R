@@ -4,7 +4,7 @@ ITER = 8
 t = c(2000000, 3000000, 5000000, 1000000, 4000000,  1000000, 5000000, 3000000)
 ##f = (shape/scale)*{(t/scale)^(shape-1)}
 
-#穿汲 2, 6
+#雸勳劋 2, 6
 shape = 1.35
 scale = 58065000
 f = r = numeric(ITER)
@@ -16,7 +16,7 @@ for( i in seq_len(ITER) ) {
 a = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[2]*f[6]
 a
 
-#弥历累悼拘仿 1, 3, 4, 7
+#斓滌爛鞛戨彊鞎曤牓 1, 3, 4, 7
 shape = 4.25
 scale = 26608000
 r = numeric(ITER)
@@ -28,7 +28,7 @@ for( i in seq_len(ITER) ) {
 b = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[1]*f[3]*f[4]*f[7]
 b
 
-#青沥加档 5,8
+#頄夓爼靻嶋弰 5,8
 shape = 3.97
 scale = 33166000
 r = numeric(ITER)
@@ -63,7 +63,7 @@ ITER = 8
 t = c(2000000, 3000000, 5000000, 1000000, 4000000,  1000000, 5000000, 3000000)
 ##f = (shape/scale)*{(t/scale)^(shape-1)}
 
-#穿汲 2, 6
+#雸勳劋 2, 6
 
 f = r = numeric(ITER)
 for( i in seq_len(ITER) ) {
@@ -77,7 +77,7 @@ for( i in seq_len(ITER) ) {
 a = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[2]*f[6]
 a
 
-#弥历累悼拘仿 1, 3, 4, 7
+#斓滌爛鞛戨彊鞎曤牓 1, 3, 4, 7
 
 r = numeric(ITER)
 for( i in seq_len(ITER) ) {
@@ -91,7 +91,7 @@ for( i in seq_len(ITER) ) {
 b = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[1]*f[3]*f[4]*f[7]
 b
 
-#青沥加档 5,8
+#頄夓爼靻嶋弰 5,8
 
 r = numeric(ITER)
 for( i in seq_len(ITER) ) {
