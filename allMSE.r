@@ -1,7 +1,7 @@
 #============================================================================
 rm(list=ls())
 
-sorce("https://github.com/namijeong/CFM/blob/main/fnpp5.R")
+source("https://github.com/namijeong/CFM/blob/main/fnpp5.R")
 #============================================================================
 data1 = C3[MODE3==1] ; data2 = C3[MODE3==2] ; data3 = C3[MODE3==3] ; 
 # plot(  log(sort(data1)),  log(-log(1-ppoints(data1))), pch=2, xlab="logx", ylab="loglog"  )
