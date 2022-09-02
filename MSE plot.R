@@ -1,24 +1,39 @@
 #============================================================================
 rm(list=ls())
+##source ("C:/CR/fnpp5.R" )
+##source ("C:/CR/MicrobondC3_C.r" )
 
-source ("C:/CR/fnpp5.R" )
-source ("C:/CR/MicrobondC3_C.r" )
-##source ("C:/CR/MicrobondC3_door.r" )
-##source ("C:/CR/MicrobondC3_airplane.r" )
+##공압실린더
+MODE3 = c(2,1,2,2,3,1,2,3 ) 
+C3 = c(2000000, 3000000, 5000000, 1000000, 4000000, 1000000, 5000000, 3000000 )
 
-## source ("fnpp5.R" )
-## source ("MicrobondC3.r")
+##유압실린더
+MODE30 = c(1,1,1,1,1,
+           1,1,1,1,1,
+           2,2,2,2,2,
+           2,2,2,2,2,
+           2,2,2,2,2,
+           2,2,2,2,2,
+           2,2,2)
+
+C30 = c(524, 594, 914, 914, 1223,
+                1366, 1519, 1547, 1946, 2324,
+                18, 21, 64, 95, 110,
+                122, 128, 144, 162, 180,
+                181, 220, 247, 251, 255,
+                269, 276, 337, 376, 412,
+                452, 999, 1043)
 
 
 #============================================================================
-data1 = MicrobondC3[MODEC3==1] ; data2 = MicrobondC3[MODEC3==2] ; data3 = MicrobondC3[MODEC3==3] ; 
+data1 = C3[MODE3==1] ; data2 = C3[MODE3==2] ; data3 = C3[MODE3==3] ; 
 # plot(  log(sort(data1)),  log(-log(1-ppoints(data1))), pch=2, xlab="logx", ylab="loglog"  )
 # plot(  log(sort(data2)),  log(-log(1-ppoints(data2))), pch=2, xlab="logx", ylab="loglog"  )
 # plot(  log(sort(data3)),  log(-log(1-ppoints(data3))), pch=2, xlab="logx", ylab="loglog"  )
 ##==========================================================================
-idx  = MODEC3
-data.all = MicrobondC3 
-idx.sort = order( MicrobondC3 )
+idx  = MODE3
+data.all = C3 
+idx.sort = order( C3 )
 idx1 = ( idx[idx.sort]==1)
 idx2 = ( idx[idx.sort]==2)
 idx3 = ( idx[idx.sort]==3)
@@ -26,8 +41,8 @@ data.sort = data.all[idx.sort]
 Fall     = ppoints( data.all )
 
 #==============================================================================
-##postscript( file="MicrobondC3Plot.ps", width=4.0, height=4.0)
-#pdf( file="MicrobondC3Plot.pdf", width=4.0, height=4.0)
+##postscript( file="C3Plot.ps", width=4.0, height=4.0)
+#pdf( file="C3Plot.pdf", width=4.0, height=4.0)
  par(mar=c(5,5,5,5), omi=c(0,0,0,0), cex=0.6,mex=0.5)
 #==============================================================================
 xlim = range( log(data.all) );  
@@ -40,14 +55,13 @@ xlim = range( log(data.all) );
  legend (13.8,1, pch=c(2,4,19),  legend=c("Leak", "Pressure", "Speed"), bty="n" ,lwd = 1.5, cex =1.5)
  legend (13.77, 0.3, lty=c(1,1) ,col=c(4,2),   legend=c("EM_CFM", "ReliSoft_CFM"), bty="n"  ,lwd = 1.5, cex =1.5)
 
-
 ##-----------------------------------------------------------------------
  X = sort(data.all) ; d = idx[ order(data.all) ]
 ##-----------------------------------------------------------------------
 
 ##-----------------------------------------------------------------------
 ## Weibull Model
-##-----------------------------------------------------------------------
+##EM-----------------------------------------------------------------------
  Sweibull <- function(x, alpha,lam) {
         scale1 = lam[1]^(-1/alpha[1])
         scale2 = lam[2]^(-1/alpha[2])
@@ -62,11 +76,10 @@ xlim = range( log(data.all) );
  xxx = seq(min(X),max(X), l=100)
  lines(log(xxx), log(-log(Sweibull( xxx, alpha=para.weibull$alpha, lam=para.weibull$lam))), lty=1, col =4 ,lwd = 2)
  
- ##-----------------------------------------------------------------------
+ ##ReliaSoft_pneumatic cylinder result-----------------------------------------------------------------------
  shap=c(1.35, 4.25, 3.97)
  scal=c(58065000, 26608000, 33166000)
  lam = (1/scal)^shap
- 
  
  Sweibull <- function(x, shap,lam) {
    scale1 = lam[1]^(-1/shap[1])
