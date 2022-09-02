@@ -40,8 +40,8 @@ for( i in seq_len(ITER) ) {
 c = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[5]*f[8]
 c
 
-EM.likelihoodlog = log(a*b*c)
-EM.likelihood = a*b*c
+Relia.likelihoodlog = log(a*b*c)
+Relia.likeli = a*b*c
 
 #=============================================================================
 set.seed(1)
@@ -105,8 +105,8 @@ for( i in seq_len(ITER) ) {
 c = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[5]*f[8]
 c
 
-Relia.likelihoodlog = log(a*b*c)
-Relia.likelihood = a*b*c
+EM.likelihoodlog = log(a*b*c)
+EM.likelihood = a*b*c
 #=============================================================================
 cat("\n\n ====================================\n")
 Relia.likelihoodlog
