@@ -40,8 +40,8 @@ for( i in seq_len(ITER) ) {
 c = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[5]*f[8]
 c
 
-EM.likelihood = log(a*b*c)
-
+EM.likelihoodlog = log(a*b*c)
+EM.likelihood = a*b*c
 
 #=============================================================================
 set.seed(1)
@@ -105,13 +105,17 @@ for( i in seq_len(ITER) ) {
 c = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[5]*f[8]
 c
 
-Reliasoft.likelihood = log(a*b*c)
-
+Relia.likelihoodlog = log(a*b*c)
+Relia.likelihood = a*b*c
 #=============================================================================
 cat("\n\n ====================================\n")
-cat("ReliaSoft.likelihood\n")
-print(Reliasoft.likelihood)
+Relia.likelihoodlog
+EM.likelihoodlog
 
+Relia.likelihood
+EM.likelihood
 cat("\n\n ====================================\n")
-cat("EM.likelihood\n")
-print(EM.likelihood)
+
+
+
+
