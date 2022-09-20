@@ -43,7 +43,7 @@ c = r[1]*r[2]*r[3]*r[4]*r[5]*r[6]*r[7]*r[8]*f[5]*f[8]
 c
 
 Relia.likelihoodlog = log(a*b*c)
-Relia.likeli = a*b*c
+Relia.likelihood = a*b*c
 
 # EM=============================================================================
 set.seed(1)
