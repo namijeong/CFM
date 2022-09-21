@@ -44,7 +44,13 @@ Rt2=function(x){
 integrate(Rt2,0,5*10^7)
 
 #---------------------------------------------------------------------------------------------------------------------
+##component MTTF
 
+MF=function(x, shape,scale){
+  scale*gamma(1+1/shape)
+  }
 
-
+MF(x=X, shape=shape1, scale=scale1)
+MF(x=X, shape=shape2, scale=scale2)
+MF(x=X, shape=shape3, scale=scale3)
 
