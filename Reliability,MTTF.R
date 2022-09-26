@@ -9,11 +9,12 @@ x=seq(0,3*10^7, by=1000)
 plot(x, R(x=x, shape = 0.6710, scale=449442)*R(x=x, shape = 4.3373, scale=340379)
      ,main = "Reliability",xlab="t(cycle)", ylab="R(t)",xlim=c(0,1*10^6), ylim=c(0,1), pch=20)
 lines(x, R(x=x,shape = 0.6710, scale=449442)*R(x=x, shape = 4.3373, scale=340379), lty=1, col =1)
-lines(x, R(x=x,shape = 0.6710, scale=449442), lty=2, col =2,lwd =1.5 )
-lines(x, R(x=x,  shape = 4.3373, scale=340379), lty=3, col =4,lwd =1.5 )
+lines(x, R(x=x,shape = 0.6710, scale=449442), lty=2, col =2,cex =1.5 )
+lines(x, R(x=x,  shape = 4.3373, scale=340379), lty=3, col =4,cex =1.5 )
 
 legend (7*10^5,1, lty=c(2,3,1) ,col=c(2,4,1), legend=c("Surge(1)", "Wear(2)","System"), bty="n",lwd = c(1.5,1.5,2) )
-abline(h = 0.3679, col = "blue", lty = 1, lwd = 1)
+abline(h = 0.3679, lty = 1, lwd = 1)
+text(8e+05,0.39,labels="B63.2 life")
 #------------------------------------------
 x=seq(0,5*10^7, by=10000)
 
