@@ -3,7 +3,7 @@ rm(list=ls())
 ##source ("C:/CR/fnpp5.R" )
 ##source ("C:/CR/MicrobondC3_C.r" )
 
-sorce("https://github.com/namijeong/CFM/blob/main/fnpp5.R")
+source("https://github.com/namijeong/CFM/blob/main/fnpp5.R")
 
 ##공압실린더
 MODE3 = c(2,1,2,2,3,1,2,3 ) 
