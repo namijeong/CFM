@@ -1,0 +1,116 @@
+#============================================================================
+   rm(list=ls())
+source("https://raw.githubusercontent.com/AppliedStat/R-code/master/2006b/Rpp5.R")
+#============================================================================
+
+MODEG = c( 2, 1, 2, 1, 2, 1, 1, 1, 0, 1,
+1, 0, 0, 2, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 2, 2)
+
+CYCLE = 1000 * c( 275,  13, 147,  23, 181,  30,  65,  10, 300, 173,
+106, 300, 300, 212, 300, 300, 300,   2, 261, 293, 88, 247,  28, 143, 300,  23, 300,  80, 245, 266 )
+
+## CYCLE, MODEG
+##
+data1 =  CYCLE[ MODEG==1 ]
+data2 =  CYCLE[ MODEG==2 ]
+
+
+F1 = ppoints(data1)
+F2 = ppoints(data2)
+
+##   plot( log(data1), log(-log(1-F1)) )
+## points(log(data2), log(-log(1-F2)), pch=2 )
+
+idx  = c( rep(1,length(data1)), rep(2,length(data2)) )
+data.all = c(data1, data2)
+idx.sort = order( data.all )
+idx1 = ( idx[idx.sort]==1)
+idx2 = ( idx[idx.sort]==2)
+data.sort = data.all[idx.sort]
+
+Fall     = ppoints( data.all )
+
+## plot(  log(data.sort[idx1]),  log(-log(1-Fall[idx1])), pch=15 )
+## points(log(data.sort[idx2]),  log(-log(1-Fall[idx2])), pch=2  )
+
+##========================================
+## Including all the data with censoring
+library(survival)
+
+dataALL = jitter(CYCLE, factor=1e-3)
+Mode    = MODEG
+
+fit = survfit ( Surv(dataALL, (Mode>0)) ~ 1 )
+FALL = 1 - fit$surv
+
+logT0 = log(fit$time[ MODEG==0 ]) 
+logT1 = log(fit$time[ MODEG==1 ])  
+logT2 = log(fit$time[ MODEG==2 ])  
+loglog1 = log( -log(fit$surv[ MODEG==1 ]) )
+loglog2 = log( -log(fit$surv[ MODEG==2 ]) )
+loglog0 = log( -log(fit$surv[ MODEG==0 ]) )
+
+ xlim = range( logT0, logT1, logT2)
+ ylim1 = min( loglog0, loglog1, loglog2)
+ ylim2 = max( loglog0, loglog1, loglog2) 
+ 
+ png(file = "Fig2.png", width = 800, height = 800)
+ par( mfrow=c(1,1), mar=c(4,4,2,1), omi=c(0,0,0,0), cex=1.8, mex=1 )
+
+#==============================================================================
+ #postscript( file="DeviceGPlot.ps", width=4.0, height=4.0)
+ #par(mfrow=c(1,1), mar=c(5,5,5,5), omi=c(0,0,0,0), cex=0.6,mex=0.5)
+
+xlab = expression( plain(log) ~ {italic(t)}[i]  )
+ylab = expression(  log( -log ({italic(1-F)})) )
+
+plot(  logT1, loglog1, main = "Weibull Probability", pch=3, xlim=xlim,ylim=c(ylim1,ylim2),
+        xlab="logt", ylab="log{-log(1-F(t))}",lwd = 1.5, cex =1.5)
+ points(logT2, loglog2, pch=6,lwd = 1.5, cex =1.5  )
+ points(logT0, loglog0, pch=1 ,lwd = 1.5, cex =1.5 )
+ legend (7.7, -0.3, pch=c(3,6,1), legend=c("surge(1)", "wear(2)", "censored"), bty="n", cex =1 )
+ legend (7.4,0.1, lty=c(1,2) ,col=c(4,2), legend=c("EM_CFM", "ReliaSoft_CFM"), bty="n",lwd = 1, cex =1 )
+
+#==============================================================================
+#==============================================================================
+##-----------------------------------------------------------------------
+ X = sort(CYCLE) ; d = MODEG[ order(CYCLE) ]
+##-----------------------------------------------------------------------
+
+##-----------------------------------------------------------------------
+## Weibull Model
+##-----------------------------------------------------------------------
+ Sweibull <- function(x, alpha,lam) {
+        scale1 = lam[1]^(-1/alpha[1])
+        scale2 = lam[2]^(-1/alpha[2])
+        (1-pweibull(x,shape=alpha[1],scale=scale1))*(1-pweibull(x,shape=alpha[2],scale=scale2))
+ }
+ para.weibull = weibull.cm.EM(X,d, eps=1E-5)
+ Fweibull = 1-Sweibull(X, alpha=para.weibull$alpha, lam=para.weibull$lam)
+ MSEweibull = mean( (Fweibull-FALL)^2 )
+ xxx = seq(min(X),max(X), l=100)
+ lines(log(xxx), log(-log(Sweibull( xxx, alpha=para.weibull$alpha, lam=para.weibull$lam))), lty=1,lwd = 2, col = 4 )
+
+##-----------------------------------------------------------------------
+## Weibull Model plot
+##-----------------------------------------------------------------------
+ ##기존모수추정
+ shap=c(0.67, 4.49)
+ scal=c(449430, 340380)
+ lam = (1/scal)^shap
+ 
+ 
+ Sweibull <- function(x, shap,lam) {
+   scale1 = lam[1]^(-1/shap[1])
+   scale2 = lam[2]^(-1/shap[2])
+   (1-pweibull(x,shape=shap[1],scale=scale1))*(1-pweibull(x,shape=shap[2],scale=scale2))
+ }
+ Fweibull = 1-Sweibull(X, shap=shap, lam=lam)
+ MSEweibull = mean( (Fweibull-FALL)^2 )
+ xxx = seq(min(X),max(X), l=100)
+ lines(log(xxx), log(-log(Sweibull(xxx, shap=shap, lam=lam))), lty=2, col = 2,lwd = 2 )
+
+##=========================================================================
+dev.off()
+
+
