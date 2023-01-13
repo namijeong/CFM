@@ -38,8 +38,8 @@ xlim = range( log(data.all) );
         xlab="logt", ylab="log{-log(1-F(t))}",lwd = 1.5, cex =1.5  )
  points(log(data.sort[idx2]),  log(-log(1-Fall[idx2])), pch=4,lwd = 1.5, cex =1.5)
  points(log(data.sort[idx3]),  log(-log(1-Fall[idx3])), pch=19,lwd = 1.5, cex =1.5 )
- legend (13.87,2, pch=c(2,4,19),  legend=c("leak", "pressure", "speed"), bty="n" , cex =1)
- legend (13.77, 2.7, lty=c(1,2) ,col=c(4,2),   legend=c("EM_CFM", "ReliSoft_CFM"), bty="n"  ,lwd = 1, cex =1)
+ legend (13.87,2, pch=c(2,4,19),  legend=c("Leak(A)", "Pressure(B)", "Speed(C)"), bty="n" , cex =1)
+ legend (13.77, 2.7, lty=c(1,2) ,col=c(4,2),   legend=c("EM_CFM", "ReliSoft_CFM"), bty="n"  ,lwd = 2, cex =1)
 
 
 ##-----------------------------------------------------------------------
